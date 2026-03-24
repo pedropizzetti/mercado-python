@@ -9,7 +9,7 @@ def criar_conexao():
             database="mercado"
         )
         return conexao
-    except Exception as e: # <--- Agora o except faz sentido
+    except Exception as e: 
         print(f"Erro ao conectar: {e}")
         return None
 
