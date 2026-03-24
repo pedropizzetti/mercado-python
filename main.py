@@ -37,8 +37,18 @@ def registrar_venda():
     cursor = conn.cursor()
 
     try:
-        id_prod = int(input("Digite o ID do produto: "))
-        qtd_venda = int(input("Digite a quantidade: "))
+        entrada_id = input("Digite o ID do produto: ")
+        if not entrada_id.isdigit():
+            print("\nErro: O ID deve ser apenas números!")
+            return
+
+        entrada_qtd = input("Digite a quantidade: ")
+        if not entrada_qtd.isdigit():
+            print("\nErro: A quantidade deve ser apenas números!")
+            return
+
+        id_prod = int(entrada_id)
+        qtd_venda = int(entrada_qtd)
 
         cursor.execute("SELECT nome, preco_venda, estoque FROM produtos WHERE id_produto = %s", (id_prod,))
         produto = cursor.fetchone()
