@@ -52,7 +52,6 @@ def registrar_venda():
 
         cursor.execute("SELECT nome, preco_venda, estoque FROM produtos WHERE id_produto = %s", (id_prod,))
         produto = cursor.fetchone()
-
         if produto and produto[2] >= qtd_venda:
             nome, preco, estoque_no_banco = produto
             valor_total = preco * qtd_venda
