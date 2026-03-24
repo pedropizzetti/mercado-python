@@ -35,4 +35,4 @@ O sistema utiliza o conceito de **Transações Automáticas**:
 - [ ] Gerar cupom fiscal em formato `.txt` ou `.pdf`.
 
 ---
-🤓️ **Desenvolvido por Pedro Pizzetti** *Estudante de Ciência de Dados focado em transformar linhas de código em insights reais.*
+🤓️ **Desenvolvido por Pedro Pizzetti** - *Estudante de Ciência de Dados focado em transformar linhas de código em insights reais.*
