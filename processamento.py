@@ -175,7 +175,6 @@ def excluir_produto(conn):
 def relatorio_lucro(conn):
     cursor = conn.cursor()
     try:
-        # SQL "Ninja": Calcula a diferença entre venda e custo multiplicada pela quantidade
         sql = """
               SELECT p.nome, \
                      SUM(iv.quantidade)                                       as total_vendido, \
