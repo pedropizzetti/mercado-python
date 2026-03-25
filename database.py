@@ -9,6 +9,11 @@ def criar_conexao():
             database="mercado"
         )
         return conexao
-    except Exception as e:
-        print(f"Erro ao conectar: {e}")
+    except mysql.connector.Error as e:
+        print(f"Erro de banco de dados: {e}")
         return None
+
+def fechar_conexao(conexao):
+    if conexao.is_connected():
+        conexao.close()
+        print("A conexão com o banco de dados foi encerrada com sucesso.")
