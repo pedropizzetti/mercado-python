@@ -31,7 +31,6 @@ O sistema utiliza o conceito de **Transações Automáticas**:
 
 ## Próximos Passos (Roadmap)
 - [ ] Criar dashboard no Power BI integrado ao banco.
-- [ ] Adicionar sistema de login para gerentes.
 - [ ] Gerar cupom fiscal em formato `.txt` ou `.pdf`.
 
 ---
