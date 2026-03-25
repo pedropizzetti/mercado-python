@@ -92,7 +92,7 @@ def registrar_venda(conn):
             cursor.execute("UPDATE produtos SET estoque = %s WHERE id_produto = %s", (novo_estoque, id_prod))
 
             conn.commit()
-            nome_arquivo = f"cupom_venda_{id_venda}.text"
+            nome_arquivo = f"cupom_venda_{id_venda}.txt"
             with open(nome_arquivo, "w", encoding="utf-8") as f:
                 f.write(f"--- MERCADO ---\n")
                 f.write(f"Venda ID: {id_venda}\n")
