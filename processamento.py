@@ -1,18 +1,20 @@
 import csv
 
-
 def listar_produtos(conn):
     cursor = conn.cursor()
-    cursor.execute("SELECT id_produto, nome, preco_venda, estoque FROM produtos")
+    cursor.execute("SELECT id_produto, nome, categoria, preco_venda, estoque FROM produtos")
     produtos = cursor.fetchall()
 
-    print("\n" + "-" * 30)
-    print("ESTOQUE ATUAL")
-    print("-" * 30)
-    for p in produtos:
-        print(f"ID: {p[0]} | {p[1]} | R${p[2]} | Estoque: {p[3]}")
-    cursor.close()
+    print("\n" + "-" * 70)
+    print("LISTA DE PRODUTOS")
+    print("-" * 70)
+    print(f"{'ID':<4} | {'NOME':<30} | {'CATEGORIA':<15} | {'PREÇO':<10} | {'ESTOQUE'}")
 
+    for p in produtos:
+        print(f"{p[0]:<4} | {p[1]:<30} | {p[2]:<15} | R${p[3]:<8.2f} | {p[4]}")
+
+    print("-" * 70)
+    cursor.close()
 
 def gerar_relatorio(conn):
     cursor = conn.cursor()
@@ -35,7 +37,6 @@ def gerar_relatorio(conn):
         print(f"Erro ao gerar relatório: {e}")
     finally:
         cursor.close()
-
 
 def registrar_venda(conn):
     cursor = conn.cursor()
@@ -103,6 +104,60 @@ def registrar_venda(conn):
     finally:
         cursor.close()
 
+def cadastrar_produto(conn):
+    cursor = conn.cursor()
+    try:
+        print("-" * 30)
+        print("CADASTRO DE NOVO PRODUTO")
+        print("-" * 30)
+        nome=input("Digite o nome do produto: ")
+        categoria=input("Digite o categoria do produto: ")
+        custo=float(input("Digite o preço de custo: "))
+        preco=float(input("Digite o preço de venda: "))
+        estoque=int(input("Digite a quantidade inicial de estoque: "))
+
+        sql = "INSERT INTO produtos (nome, categoria, preco_custo, preco_venda, estoque) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(sql, (nome, categoria, custo, preco, estoque))
+
+        conn.commit()
+        print(f"\n{nome} foi cadastrado com sucesso!")
+    except ValueError:
+        print("\nErro. Preço de Custo, Preço de Venda e Estoque devem ser números.")
+    except Exception as e:
+        print(f"\nErro ao cadastrar: {e}")
+        conn.rollback()
+    finally:
+        cursor.close()
+
+def excluir_produto(conn):
+    cursor = conn.cursor()
+    try:
+        print("-" * 30)
+        print("EXCLUIR PRODUTO")
+        print("-" * 30)
+        id_prod=input("Digite o ID do produto que deseja remover: ")
+        if not id_prod.isdigit():
+            print("Erro: O ID deve conter apenas números!")
+            return
+        cursor.execute("select nome from produtos where id_produto = %s", (id_prod,))
+        produto = cursor.fetchone()
+
+        if produto:
+            confirmar=input(f"Tem certeza que deseja excluir '{produto[0]}'? (S/N)").upper()
+            if confirmar == "S":
+                cursor.execute("delete from produtos where id_produto = %s", (id_prod,))
+                conn.commit()
+                print(f"\nProduto '{produto[0]}' excluido com sucesso!")
+            else:
+                print("\nOperação cancelada!")
+        else:
+            print("\nErro: Produto não encontrado!")
+
+    except Exception as e:
+        print(f"Erro ao excluir: {e}")
+        conn.rollback()
+    finally:
+        cursor.close()
 
 def exportar_csv(conn):
     cursor = conn.cursor()
