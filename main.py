@@ -6,7 +6,7 @@ conexao=criar_conexao()
 if conexao:
     while True:
         print("\n" + "-" * 30)
-        print("      SISTEMA DE MERCADO")
+        print("    SISTEMA DE MERCADO")
         print("-" * 30)
         print("1 - Registrar venda")
         print("2 - Listar produtos")
@@ -14,6 +14,7 @@ if conexao:
         print("4 - Excluir produto")
         print("5 - Gerar relatorio em tela")
         print("6 - Exportar relatório para Excel/CSV")
+        print("7 - Relatório de lucratividade")
         print("0 - Sair")
         opcao=input("Escolha uma opção: ")
 
@@ -29,6 +30,8 @@ if conexao:
             processamento.gerar_relatorio(conexao)
         elif opcao == "6":
             processamento.exportar_csv(conexao)
+        elif opcao == "7":
+            processamento.relatorio_lucro(conexao)
         elif opcao == "0":
             print("Saindo do sistema...")
             conexao.close()

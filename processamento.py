@@ -92,6 +92,18 @@ def registrar_venda(conn):
             cursor.execute("UPDATE produtos SET estoque = %s WHERE id_produto = %s", (novo_estoque, id_prod))
 
             conn.commit()
+            nome_arquivo = f"cupom_venda_{id_venda}.text"
+            with open(nome_arquivo, "w", encoding="utf-8") as f:
+                f.write(f"--- MERCADO ---\n")
+                f.write(f"Venda ID: {id_venda}\n")
+                f.write(f"Produto: {nome}\n")
+                f.write(f"Quantidade: {qtd_venda} x R$ {preco:.2f}\n")
+                f.write(f"Total: R$ {valor_total:.2f}\n")
+                f.write(f"Pagamento: {pagamento_escolhido}\n")
+                f.write("-------------------------\n")
+                f.write("Obrigado pela preferência! :)")
+            print(f"Cupom fiscal gerado: {nome_arquivo}")
+
             print("-" * 30)
             print(f"Venda realizada: {qtd_venda}x {nome}")
             print(f"Total: R$ {valor_total:.2f} | Pagamento: {pagamento_escolhido}")
@@ -143,7 +155,7 @@ def excluir_produto(conn):
         produto = cursor.fetchone()
 
         if produto:
-            confirmar=input(f"Tem certeza que deseja excluir '{produto[0]}'? (S/N)").upper()
+            confirmar=input(f"Tem certeza que deseja excluir '{produto[0]}'? (S/N): ").upper()
             if confirmar == "S":
                 cursor.execute("delete from produtos where id_produto = %s", (id_prod,))
                 conn.commit()
@@ -156,6 +168,39 @@ def excluir_produto(conn):
     except Exception as e:
         print(f"Erro ao excluir: {e}")
         conn.rollback()
+    finally:
+        cursor.close()
+
+
+def relatorio_lucro(conn):
+    cursor = conn.cursor()
+    try:
+        # SQL "Ninja": Calcula a diferença entre venda e custo multiplicada pela quantidade
+        sql = """
+              SELECT p.nome, \
+                     SUM(iv.quantidade)                                       as total_vendido, \
+                     SUM(iv.quantidade * (iv.preco_unitario - p.preco_custo)) as lucro_total
+              FROM itens_venda iv
+                       JOIN produtos p ON iv.id_produto = p.id_produto
+              GROUP BY p.id_produto \
+              """
+        cursor.execute(sql)
+        resultados = cursor.fetchall()
+
+        print("\n" + "=" * 50)
+        print(f"{'PRODUTO':<30} | {'QTD':<5} | {'LUCRO (R$)'}")
+        print("-" * 50)
+
+        lucro_geral = 0
+        for r in resultados:
+            print(f"{r[0]:<30} | {r[1]:<5} | R$ {r[2]:>8.2f}")
+            lucro_geral += r[2]
+
+        print("-" * 50)
+        print(f"LUCRO LÍQUIDO TOTAL: R$ {lucro_geral:.2f}")
+        print("=" * 50)
+    except Exception as e:
+        print(f"Erro no relatório de lucro: {e}")
     finally:
         cursor.close()
 
