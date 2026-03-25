@@ -16,7 +16,7 @@ Para o código não virar uma bagunça, dividi ele em três partes:
 * **Relatório de Lucro:** O sistema faz uma conta automática (Preço de Venda - Preço de Custo) e mostra quanto você ganhou de verdade em cada produto.
 * **Exportação para Excel (CSV):** Dá para exportar a lista de vendas para um arquivo que abre no Excel.
 
-## 🛠Tecnologias usadas
+## Tecnologias usadas
 * **Python 3.12**
 * **MySQL** (Banco de dados)
 * **PyCharm** (Onde escrevi o código)
