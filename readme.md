@@ -6,6 +6,11 @@
 ## Sobre o Projeto
 Olá! Este projeto nasceu da necessidade de unir a lógica de programação em **Python** com a persistência de dados em **SQL**. Mais do que um simples CRUD, o foco aqui foi garantir a **integridade dos dados** (estoque nunca fica negativo) e a **segurança** das transações.
 
+## Arquitetura Modular
+O sistema foi refatorado seguindo o princípio de Separação de Responsabilidades:
+* **database.py:** Gerenciamento centralizado da conexão.
+* **processamento.py:** Toda a lógica de negócio.
+* **main.py:** Interface de usuário e controle de fluxo do sistema.
 
 
 ## Tech Stack & Ferramentas
@@ -17,7 +22,6 @@ Olá! Este projeto nasceu da necessidade de unir a lógica de programação em *
 ## Funcionalidades Principais
 *  **Conexão Robusta:** Tratamento de erros para falhas de servidor.
 *  **Validação de Entrada:** Proteção contra entradas de texto em campos numéricos (`isdigit`).
-*  **Segurança SQL:** Prevenção total contra SQL Injection usando Placeholders.
 *  **Lógica de Vendas:** 
     1. Verifica disponibilidade de estoque.
     2. Registra a venda principal.
@@ -31,7 +35,6 @@ O sistema utiliza o conceito de **Transações Automáticas**:
 
 ## Próximos Passos (Roadmap)
 - [ ] Criar dashboard no Power BI integrado ao banco.
-- [ ] Adicionar sistema de login para gerentes.
 - [ ] Gerar cupom fiscal em formato `.txt` ou `.pdf`.
 
 ---
