@@ -49,7 +49,7 @@ def gerar_relatorio():
         print("\n" + "-" * 30)
         print("RELATÓRIO DE VENDAS")
         print("-" * 30 + "\n")
-        print(f"Faturamento total: {total:.2f}")
+        print(f"Faturamento total: R$ {total:.2f}")
         print(f"Produtos em alerta: {len(baixos)}")
         for b in baixos:
             print(f" -> {b[0]} (Apenas {b[1]} unidades no estoque)")
@@ -85,7 +85,7 @@ def registrar_venda():
             print("Erro. A quantidade deve ser maior que zero!")
             return
 
-        print("Formas de pagamento::")
+        print("Formas de pagamento:")
         print("1 - Dinheiro")
         print("2 - Cartão de Débito")
         print("3 - Cartão de Crédito")
@@ -167,12 +167,12 @@ while True:
         listar_produtos()
     elif opcao == "2":
         registrar_venda()
-    elif opcao == "0":
-        print("Saindo do sistema... Até logo :)")
-        break
     elif opcao == "3":
         gerar_relatorio()
     elif opcao == "4":
         exportar_csv()
+    elif opcao == "0":
+        print("Saindo do sistema... Até logo :)")
+        break
     else:
         print("Opção inválida!")
