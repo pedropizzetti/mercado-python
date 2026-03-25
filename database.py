@@ -14,6 +14,8 @@ def criar_conexao():
         return None
 
 def fechar_conexao(conexao):
-    if conexao.is_connected():
+    if conexao and conexao.is_connected():
         conexao.close()
         print("A conexão com o banco de dados foi encerrada com sucesso.")
+    else:
+        print("Não havia conexão ativa para fechar o banco de dados.")
