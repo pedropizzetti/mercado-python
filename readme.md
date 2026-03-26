@@ -16,17 +16,37 @@ Para o código não virar uma bagunça, dividi ele em três partes:
 * **Relatório de Lucro:** O sistema faz uma conta automática (Preço de Venda - Preço de Custo) e mostra quanto você ganhou de verdade em cada produto.
 * **Exportação para Excel (CSV):** Dá para exportar a lista de vendas para um arquivo que abre no Excel.
 
+## Business Intelligence
+* Para transformar os dados brutos em decisões estratégicas, integrei o banco de dados MySQL a um Dashboard interativo no Power BI:
+* **Monitor de Reposição:** Foi criado um alerta visual que identifica automaticamente produtos com estoque baixo e os coloca no topo da lista para compra.
+* **Análise de Rentabilidade:** Cálculo de Margem de Lucro Real por produto através de medidas DAX.
+* **Visão de Faturamento:** Gráficos que mostram a preferência de pagamento dos clientes (Pix, Cartão, Dinheiro) e o lucro total do período.
+<img width="1460" height="821" alt="image" src="https://github.com/user-attachments/assets/ba2aec11-1724-40d8-b472-85d132c99b8c" />
+
 ## Tecnologias usadas
 * **Python 3.12**
 * **MySQL** (Banco de dados)
-* **PyCharm** (Onde escrevi o código)
+* **PyCharm**
+* **Power BI Desktop** (Visualização de dados)
+* **DAX** (Linguagem para cálculos de BI)
+* **MySQL Connector** (Integração Banco -> BI)
 
-## O que já está funcionando
-- [x] Cadastro e exclusão de produtos.
-- [x] Venda com baixa automática no estoque.
-- [x] Verificação para não deixar o estoque ficar negativo.
-- [x] Geração de cupom em texto.
-- [x] Relatório de lucro por item.
+## Como Executar o Projeto
+1. Banco de Dados (MySQL)          
+Certifique-se de que o XAMPP (ou similar) esteja rodando o serviço do MySQL.     
+Importe o arquivo `mercado.sql` (disponível neste repositório) para criar a estrutura das tabelas e os dados iniciais. 
+Caso precise alterar as credenciais de acesso, verifique o arquivo database.py.
+
+2. Ambiente Python   
+Instale as bibliotecas necessárias usando o terminal:
+`pip install mysql-connector-python pandas`                
+Execute o arquivo principal para abrir o menu do sistema:
+`python main.py`
+
+3. Dashboard (Power BI)        
+Abra o arquivo `Dashboard_Vendas.pbix` no Power BI Desktop.
+
+Caso os dados não carreguem de primeira, vá em Página Inicial > Transformar Dados > Configurações da Fonte de Dados e atualize o caminho para o seu localhost do MySQL.
 
 ---
 **Desenvolvido por Pedro Pizzetti**
